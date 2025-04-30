@@ -1,0 +1,153 @@
+basePath: /api
+definitions:
+  models.DeleteResponse:
+    properties:
+      id:
+        type: integer
+      status:
+        type: string
+    type: object
+  models.IndexResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Task'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.Task:
+    properties:
+      completed:
+        type: boolean
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  models.TaskRequest:
+    properties:
+      completed:
+        type: boolean
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  models.TaskResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Task'
+    type: object
+info:
+  contact:
+    name: shairayvonnecruz@gmail.com
+  description: Simple Task Manager API
+  title: Task API
+  version: 1.0.0
+paths:
+  /tasks:
+    get:
+      description: Get tasks
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: offset
+        in: query
+        name: offset
+        type: string
+      - description: API Key
+        in: header
+        name: X-API-Key
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.IndexResponse'
+      summary: Get all saved tasks
+      tags:
+      - V1
+    post:
+      consumes:
+      - application/json
+      description: Create task
+      parameters:
+      - description: Task Data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.TaskRequest'
+      - description: API Key
+        in: header
+        name: X-API-Key
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TaskResponse'
+      summary: Create task in database
+      tags:
+      - V1
+  /tasks/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete task
+      parameters:
+      - description: API Key
+        in: header
+        name: X-API-Key
+        required: true
+        type: string
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+      summary: Delete task in database
+      tags:
+      - V1
+    patch:
+      consumes:
+      - application/json
+      description: Update task
+      parameters:
+      - description: Task Data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.TaskRequest'
+      - description: API Key
+        in: header
+        name: X-API-Key
+        required: true
+        type: string
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TaskResponse'
+      summary: Update task in database
+      tags:
+      - V1
+swagger: "2.0"
