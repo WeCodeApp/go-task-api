@@ -27,6 +27,7 @@ go run cmd/server/main.go
 #### 5. (Optional) Update swagger doc
 For updates in routes or models, you need to regenerate the swagger documentation.
 ```
+go install github.com/swaggo/swag/cmd/swag@latest
 swag init -g cmd/api/main.go
 ```
 
