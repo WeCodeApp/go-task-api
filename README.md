@@ -27,11 +27,12 @@ go run cmd/server/main.go
 #### 5. (Optional) Update swagger doc
 For updates in routes or models, you need to regenerate the swagger documentation.
 ```
-go install github.com/swaggo/swag/cmd/swag@latest
-echo $GOPATH
-export PATH=$PATH:$GOPATH/bin
+go get -u github.com/swaggo/swag/cmd/swag
+go get -u github.com/gin-gonic/gin
+go get -u github.com/swaggo/gin-swagger
+go get -u github.com/swaggo/gin-swagger/swaggerFiles
 
-swag init -g cmd/api/main.go
+go install github.com/swaggo/swag/cmd/swag@latest
 ```
 
 #### 6. Visit Swagger UI
